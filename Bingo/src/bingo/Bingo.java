@@ -4,17 +4,13 @@
  */
 package bingo;
 
+
 /**
  *
  * @author esteb
  */
 public class Bingo {
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        new MenuAdmin().setVisible(true);
     }
-    
 }
