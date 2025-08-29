@@ -21,14 +21,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         BFullHouse = new javax.swing.JButton();
-        BLinea = new javax.swing.JButton();
+        BPatron = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1200, 800));
         setMinimumSize(new java.awt.Dimension(1200, 800));
-        setPreferredSize(new java.awt.Dimension(1200, 800));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         BFullHouse.addActionListener(new java.awt.event.ActionListener() {
@@ -38,28 +36,26 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         getContentPane().add(BFullHouse, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 320, 480, 140));
 
-        BLinea.setLabel("");
-        BLinea.addActionListener(new java.awt.event.ActionListener() {
+        BPatron.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BLineaActionPerformed(evt);
+                BPatronActionPerformed(evt);
             }
         });
-        getContentPane().add(BLinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 520, 480, 140));
-        BLinea.getAccessibleContext().setAccessibleName("");
+        getContentPane().add(BPatron, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 520, 480, 140));
 
-        jPanel1.setLayout(new java.awt.GridLayout());
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 800));
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 800));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BLineaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BLineaActionPerformed
-        Linea ln = new Linea();
+    private void BPatronActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BPatronActionPerformed
+        Patron ln = new Patron();
         ln.setVisible(true);
         ln.setLocationRelativeTo(null);
         this.dispose();
-    }//GEN-LAST:event_BLineaActionPerformed
+    }//GEN-LAST:event_BPatronActionPerformed
 
     private void BFullHouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BFullHouseActionPerformed
         FullHouse fh = new FullHouse();
@@ -105,7 +101,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BFullHouse;
-    private javax.swing.JButton BLinea;
+    private javax.swing.JButton BPatron;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
