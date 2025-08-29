@@ -4,6 +4,8 @@
  */
 package bingo;
 
+import javax.swing.JOptionPane;
+
 public class MenuPrincipal extends javax.swing.JFrame {
 
     Background bg = new Background("/Imagenes/BackgroundMenuPrincipal.png");
@@ -51,17 +53,30 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BPatronActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BPatronActionPerformed
-        Patron ln = new Patron();
-        ln.setVisible(true);
-        ln.setLocationRelativeTo(null);
-        this.dispose();
+        try {
+            int cantJugadores = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de jugadores: "));
+
+            MenuAdmin ma = new MenuAdmin(cantJugadores);
+            ma.setVisible(true);
+
+            this.dispose();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese un número válido");
+        }
     }//GEN-LAST:event_BPatronActionPerformed
 
     private void BFullHouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BFullHouseActionPerformed
-        FullHouse fh = new FullHouse();
-        fh.setVisible(true);
-        fh.setLocationRelativeTo(null);
-        this.dispose();
+
+        try {
+            int cantJugadores = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de jugadores: "));
+
+            MenuAdmin ma = new MenuAdmin(cantJugadores);
+            ma.setVisible(true);
+
+            this.dispose();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese un número válido");
+        }
     }//GEN-LAST:event_BFullHouseActionPerformed
 
     /**

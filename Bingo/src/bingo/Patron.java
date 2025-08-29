@@ -4,17 +4,34 @@
  */
 package bingo;
 
-/**
- *
- * @author marye
- */
+import javax.swing.*;
+import java.awt.*;
+
 public class Patron extends javax.swing.JFrame {
 
-    /**
-     * Creates new form linea
-     */
+    private JButton[][] tablero = new JButton[5][5];
+
+    private void tablero() {
+        for (int fila = 0; fila < 5; fila++) {
+            for (int columna = 0; columna < 5; columna++) {
+                int fil = fila;
+                int col = columna;
+
+                JButton boton = new JButton();
+                tablero[fila][col] = boton;
+                jPTablero.add(boton);
+
+                boton.setOpaque(true);
+                boton.setContentAreaFilled(true);
+                boton.setFocusPainted(true);
+
+            }
+        }
+    }
+
     public Patron() {
         initComponents();
+        tablero();
     }
 
     /**
@@ -26,21 +43,78 @@ public class Patron extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPBgBingo = new javax.swing.JPanel();
+        jPTablero = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jBBingo = new javax.swing.JToggleButton();
+        lblBgBingo = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPBgBingo.setMinimumSize(new java.awt.Dimension(900, 700));
+        jPBgBingo.setPreferredSize(new java.awt.Dimension(700, 600));
+        jPBgBingo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPTablero.setLayout(new java.awt.GridLayout(5, 5));
+        jPBgBingo.add(jPTablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 700, 600));
+
+        jPanel2.setBorder(new javax.swing.border.MatteBorder(null));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 148, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 188, Short.MAX_VALUE)
+        );
+
+        jPBgBingo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 310, 150, 190));
+
+        jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 148, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 188, Short.MAX_VALUE)
+        );
+
+        jPBgBingo.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 40, 150, 190));
+
+        jBBingo.setText("BINGO");
+        jBBingo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBBingoActionPerformed(evt);
+            }
+        });
+        jPBgBingo.add(jBBingo, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 580, 160, 100));
+        jPBgBingo.add(lblBgBingo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 700));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1200, Short.MAX_VALUE)
+            .addComponent(jPBgBingo, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addComponent(jPBgBingo, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBBingoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBingoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBBingoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -81,5 +155,11 @@ public class Patron extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton jBBingo;
+    private javax.swing.JPanel jPBgBingo;
+    private javax.swing.JPanel jPTablero;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblBgBingo;
     // End of variables declaration//GEN-END:variables
 }
