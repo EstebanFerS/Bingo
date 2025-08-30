@@ -8,14 +8,13 @@ import javax.swing.JOptionPane;
 
 public class MenuPrincipal extends javax.swing.JFrame {
 
-    Background bg = new Background("/Imagenes/BackgroundMenuPrincipal.png");
+    Background bg = new Background("/Imagenes/BgMenuPrincipal.png");
 
     public MenuPrincipal() {
         setSize(1200, 800);
         this.setContentPane(bg);
         initComponents();
-        jPanel1.setOpaque(false);
-
+        jPanel.setOpaque(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -24,7 +23,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         BFullHouse = new javax.swing.JButton();
         BPatron = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        jPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -45,8 +44,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         getContentPane().add(BPatron, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 520, 480, 140));
 
-        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 800));
+        jPanel.setLayout(new java.awt.GridLayout(1, 0));
+        getContentPane().add(jPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 800));
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 800));
 
         pack();
@@ -118,6 +117,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton BFullHouse;
     private javax.swing.JButton BPatron;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel;
     // End of variables declaration//GEN-END:variables
 }

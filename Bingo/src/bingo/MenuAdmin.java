@@ -4,15 +4,10 @@
  */
 package bingo;
 
-/**
- *
- * @author esteb
- */
+
 public class MenuAdmin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MenuAdmin
-     */
+    
     public MenuAdmin(int cantJugadores) {      
         setLocationRelativeTo(null);
         initComponents();
