@@ -8,13 +8,12 @@ import javax.swing.JOptionPane;
 
 public class MenuPrincipal extends javax.swing.JFrame {
 
-    Background bg = new Background("/Imagenes/BgMenuPrincipal.png");
+    Imagenes img = new Imagenes("/Imagenes/BgMenuPrincipal.png");
 
     public MenuPrincipal() {
         setSize(1200, 800);
-        this.setContentPane(bg);
+        this.setContentPane(img);
         initComponents();
-        jPanel.setOpaque(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -23,30 +22,28 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         BFullHouse = new javax.swing.JButton();
         BPatron = new javax.swing.JButton();
-        jPanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1200, 800));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        BFullHouse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BFullHouse.png"))); // NOI18N
+        BFullHouse.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white), javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, java.awt.Color.white)));
         BFullHouse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BFullHouseActionPerformed(evt);
             }
         });
-        getContentPane().add(BFullHouse, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 320, 480, 140));
+        getContentPane().add(BFullHouse, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 320, 430, 140));
 
+        BPatron.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BPatrones.png"))); // NOI18N
+        BPatron.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, java.awt.Color.white), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white)));
         BPatron.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BPatronActionPerformed(evt);
             }
         });
-        getContentPane().add(BPatron, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 520, 480, 140));
-
-        jPanel.setLayout(new java.awt.GridLayout(1, 0));
-        getContentPane().add(jPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 800));
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 800));
+        getContentPane().add(BPatron, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 490, 430, 140));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -116,7 +113,5 @@ public class MenuPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BFullHouse;
     private javax.swing.JButton BPatron;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel;
     // End of variables declaration//GEN-END:variables
 }
