@@ -18,7 +18,7 @@ public class FullHouse extends javax.swing.JFrame {
                 int col = columna;
 
                 JButton boton = new JButton();
-                tablero[fila][col] = boton;
+                tablero[fil][col] = boton;
                 jPTablero.add(boton);
 
                 boton.setOpaque(true);
