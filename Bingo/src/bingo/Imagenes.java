@@ -1,4 +1,3 @@
-
 package bingo;
 
 import java.awt.Graphics;
@@ -20,5 +19,6 @@ public class Imagenes extends JPanel {
         if (imagen != null) {
             g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
         }
+
     }
 }
