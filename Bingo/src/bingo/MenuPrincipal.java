@@ -52,24 +52,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
         try {
             int cantJugadores = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de jugadores: "));
 
-            MenuAdmin ma = new MenuAdmin(cantJugadores);
-            ma.setVisible(true);
-
+            PanelControl pc = new PanelControl(cantJugadores);
+            pc.setVisible(true);
             this.dispose();
+
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Ingrese un número válido");
         }
     }//GEN-LAST:event_BPatronActionPerformed
 
     private void BFullHouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BFullHouseActionPerformed
-
         try {
             int cantJugadores = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de jugadores: "));
 
-            MenuAdmin ma = new MenuAdmin(cantJugadores);
-            ma.setVisible(true);
-
+            PanelControl pc = new PanelControl(cantJugadores);
+            pc.setVisible(true);
             this.dispose();
+
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Ingrese un número válido");
         }

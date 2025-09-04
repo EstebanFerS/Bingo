@@ -48,6 +48,7 @@ public class FullHouse extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jBBingo = new javax.swing.JToggleButton();
+        jPanel3 = new javax.swing.JPanel();
         lblBgBingo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -56,8 +57,9 @@ public class FullHouse extends javax.swing.JFrame {
         jPBgBingo.setPreferredSize(new java.awt.Dimension(700, 600));
         jPBgBingo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPTablero.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPTablero.setLayout(new java.awt.GridLayout(5, 5));
-        jPBgBingo.add(jPTablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 700, 600));
+        jPBgBingo.add(jPTablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 670, 660));
 
         jPanel2.setBorder(new javax.swing.border.MatteBorder(null));
 
@@ -65,14 +67,14 @@ public class FullHouse extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 148, Short.MAX_VALUE)
+            .addGap(0, 188, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 188, Short.MAX_VALUE)
         );
 
-        jPBgBingo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 310, 150, 190));
+        jPBgBingo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 370, 190, 190));
 
         jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
 
@@ -80,14 +82,14 @@ public class FullHouse extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 148, Short.MAX_VALUE)
+            .addGap(0, 188, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 188, Short.MAX_VALUE)
         );
 
-        jPBgBingo.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 40, 150, 190));
+        jPBgBingo.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 160, 190, 190));
 
         jBBingo.setText("BINGO");
         jBBingo.addActionListener(new java.awt.event.ActionListener() {
@@ -95,7 +97,22 @@ public class FullHouse extends javax.swing.JFrame {
                 jBBingoActionPerformed(evt);
             }
         });
-        jPBgBingo.add(jBBingo, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 580, 160, 100));
+        jPBgBingo.add(jBBingo, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 580, 190, 100));
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 188, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 128, Short.MAX_VALUE)
+        );
+
+        jPBgBingo.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 20, 190, 130));
         jPBgBingo.add(lblBgBingo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 700));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -158,6 +175,7 @@ public class FullHouse extends javax.swing.JFrame {
     private javax.swing.JPanel jPTablero;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblBgBingo;
     // End of variables declaration//GEN-END:variables
 }
