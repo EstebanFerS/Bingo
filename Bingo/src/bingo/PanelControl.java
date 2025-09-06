@@ -16,11 +16,43 @@ public class PanelControl extends javax.swing.JFrame {
         }
 
         String ruta = "/Imagenes/" + numero + ".png";
-        Imagenes PanelFichas = new Imagenes(ruta);
+        Imagenes nuevaFicha = new Imagenes(ruta);
 
-        PanelFichas.setSize(150, 155);
-        PanelFichas.setVisible(true);
-        jPanel6.add(PanelFichas);
+        int anchoGrande = 130;
+        int altoGrande = 130;
+        int anchoChico = 90;
+        int altoChico = 90;
+
+        int espaciado = 10;
+        int extraSeparacion = 30;
+
+        int panelHeight = jPanel6.getHeight();
+
+        int contador = 0;
+        for (int i = 0; i < jPanel6.getComponentCount(); i++) {
+            java.awt.Component comp = jPanel6.getComponent(i);
+
+            if (comp instanceof Imagenes) {
+                Imagenes fichaVieja = (Imagenes) comp;
+
+                if (contador < 6) {
+                    int x = anchoGrande + extraSeparacion + (contador * (anchoChico + espaciado));
+                    int y = (panelHeight - altoChico) / 2;
+
+                    fichaVieja.setBounds(x, y, anchoChico, altoChico);
+                    contador++;
+                } else {
+                    fichaVieja.setVisible(false);
+                }
+            }
+        }
+
+        int xNueva = espaciado;
+        int yNueva = (panelHeight - altoGrande) / 2;
+        nuevaFicha.setBounds(xNueva, yNueva, anchoGrande, altoGrande);
+
+        jPanel6.add(nuevaFicha, 0);
+
         jPanel6.revalidate();
         jPanel6.repaint();
     }
@@ -29,7 +61,7 @@ public class PanelControl extends javax.swing.JFrame {
         generador = new FichaAleatoria();
         setLocationRelativeTo(null);
         initComponents();
-
+        jPanel6.setLayout(null);
         jToggleButton1.addActionListener(e -> GeneradorFicha());
 
     }
@@ -51,7 +83,6 @@ public class PanelControl extends javax.swing.JFrame {
         jToggleButton1 = new javax.swing.JToggleButton();
         jToggleButton2 = new javax.swing.JToggleButton();
         jPanel6 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -130,8 +161,6 @@ public class PanelControl extends javax.swing.JFrame {
         jPanel1.add(jToggleButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 703, 327, 80));
 
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel6.add(jLabel1);
-
         jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 630, 790, 150));
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 800));
 
@@ -153,10 +182,8 @@ public class PanelControl extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
