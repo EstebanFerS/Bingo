@@ -55,7 +55,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             PanelControl pc = new PanelControl(cantJugadores);
             pc.setVisible(true);
             this.dispose();
-
+            
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Ingrese un número válido");
         }
@@ -68,7 +68,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
             PanelControl pc = new PanelControl(cantJugadores);
             pc.setVisible(true);
             this.dispose();
-
+            
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Ingrese un número válido");
         }

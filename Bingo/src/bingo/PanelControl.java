@@ -9,6 +9,7 @@ public class PanelControl extends javax.swing.JFrame {
     private FichaAleatoria generador;
 
     private void GeneradorFicha() {
+        
         int numero = generador.GeneradorFicha();
         if (numero == 0) {
             jToggleButton1.setEnabled(false);
@@ -62,7 +63,6 @@ public class PanelControl extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         initComponents();
         jPanel6.setLayout(null);
-        jToggleButton1.addActionListener(e -> GeneradorFicha());
 
     }
 
@@ -178,6 +178,10 @@ public class PanelControl extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                               
+        GeneradorFicha();
+     } 
+     
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton2ActionPerformed
