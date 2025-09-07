@@ -5,7 +5,6 @@
 package bingo;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class FullHouse extends javax.swing.JFrame {
 
@@ -27,6 +26,19 @@ public class FullHouse extends javax.swing.JFrame {
 
             }
         }
+    }
+
+    public void mostrarFicha(int numero) {
+        jPanel1.removeAll();
+        
+        String ruta = "/Imagenes/" + numero + ".png";
+        Imagenes PanelFichas = new Imagenes(ruta);
+        PanelFichas.setSize(190, 190);
+        PanelFichas.setVisible(true);
+        
+        jPanel1.add(PanelFichas);
+        jPanel1.revalidate();
+        jPanel1.repaint();
     }
 
     public FullHouse() {

@@ -4,12 +4,17 @@
  */
 package bingo;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class PanelControl extends javax.swing.JFrame {
 
     private FichaAleatoria generador;
+    private FullHouse FH = new FullHouse();
+    private JButton[][] tablero = new JButton[16][5];
 
     private void GeneradorFicha() {
-        
+
         int numero = generador.GeneradorFicha();
         if (numero == 0) {
             jToggleButton1.setEnabled(false);
@@ -17,6 +22,11 @@ public class PanelControl extends javax.swing.JFrame {
         }
 
         String ruta = "/Imagenes/" + numero + ".png";
+
+        if (FH != null) {
+            FH.mostrarFicha(numero);
+        }
+
         Imagenes nuevaFicha = new Imagenes(ruta);
 
         int anchoGrande = 130;
@@ -56,6 +66,66 @@ public class PanelControl extends javax.swing.JFrame {
 
         jPanel6.revalidate();
         jPanel6.repaint();
+
+        for (int i = 0; i < jPTablero.getComponentCount(); i++) {
+            java.awt.Component comp = jPTablero.getComponent(i);
+            if (comp instanceof JButton) {
+                JButton boton = (JButton) comp;
+                if (boton.getText().equals(String.valueOf(numero))) {
+                    Color original = boton.getBackground();
+                    boton.setBackground(original.darker()); 
+                }
+            }
+        }
+    }
+
+    private void tablero() {
+        
+        String[] letras = {"B", "I", "N", "G", "O"};
+        Color[] colores = {
+            new Color(128, 0, 32),
+            Color.BLACK,
+            new Color(0, 0, 128),
+            new Color(184, 134, 11),
+            new Color(128, 0, 128)
+        };
+
+        for (int col = 0; col < 5; col++) {
+            JButton letra = new JButton(letras[col]);
+            letra.setEnabled(false);
+            letra.setForeground(Color.WHITE);
+            letra.setFont(new Font("Felix Titling", Font.BOLD, 16));
+            letra.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+            letra.setFocusPainted(false);
+            letra.setContentAreaFilled(false);
+            letra.setOpaque(true);
+            letra.setBackground(colores[col]);
+            tablero[0][col] = letra;
+            jPTablero.add(letra);
+        }
+
+        int[][] rangos = {
+            {1, 15}, {16, 30}, {31, 45}, {46, 60}, {61, 75}
+        };
+
+        for (int fila = 1; fila <= 15; fila++) {
+            for (int col = 0; col < 5; col++) {
+                int numero = rangos[col][0] + (fila - 1);
+                JButton boton = new JButton(String.valueOf(numero));
+                boton.setForeground(Color.WHITE);
+                boton.setFont(new Font("Arial", Font.BOLD, 14));
+                boton.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+                boton.setFocusPainted(false);
+                boton.setContentAreaFilled(false);
+                boton.setOpaque(true);
+                boton.setBackground(colores[col]);
+                tablero[fila][col] = boton;
+                jPTablero.add(boton);
+            }
+        }
+
+        jPTablero.revalidate();
+        jPTablero.repaint();
     }
 
     public PanelControl(int cantJugadores) {
@@ -63,7 +133,10 @@ public class PanelControl extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         initComponents();
         jPanel6.setLayout(null);
+        jToggleButton1.addActionListener(e -> GeneradorFicha());
+        tablero();
 
+        FH.setVisible(true);
     }
 
     /**
@@ -77,7 +150,7 @@ public class PanelControl extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        jPTablero = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jToggleButton1 = new javax.swing.JToggleButton();
@@ -104,20 +177,12 @@ public class PanelControl extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(854, 30, 320, -1));
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 788, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 578, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 790, 580));
+        jPTablero.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        jPTablero.setForeground(new java.awt.Color(153, 0, 0));
+        jPTablero.setToolTipText("");
+        jPTablero.setFont(new java.awt.Font("Felix Titling", 1, 12)); // NOI18N
+        jPTablero.setLayout(new java.awt.GridLayout(16, 5));
+        jPanel1.add(jPTablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 790, 580));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -178,10 +243,7 @@ public class PanelControl extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        GeneradorFicha();
-     } 
-     
+
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton2ActionPerformed
@@ -189,9 +251,9 @@ public class PanelControl extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPTablero;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
