@@ -6,19 +6,20 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class Imagenes extends JPanel {
-
     private Image imagen;
 
     public Imagenes(String rutaImagen) {
         imagen = new ImageIcon(getClass().getResource(rutaImagen)).getImage();
     }
-
+     public ImageIcon getIcono(int ancho, int alto) {
+        return new ImageIcon(imagen.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH));
+    }
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (imagen != null) {
             g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
         }
-
     }
+    
 }
