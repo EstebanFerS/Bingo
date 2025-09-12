@@ -40,6 +40,11 @@ public class FullHouse extends javax.swing.JFrame {
         jPanel1.revalidate();
         jPanel1.repaint();
     }
+    
+    public void movimiento(int numero){
+        
+        
+    }
 
     public FullHouse() {
         initComponents();

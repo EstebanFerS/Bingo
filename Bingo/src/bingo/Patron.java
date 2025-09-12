@@ -12,36 +12,40 @@ public class Patron extends javax.swing.JFrame {
     private JButton[][] tablero = new JButton[5][5];
 
     private void tablero() {
+        FichaAleatoria generador = new FichaAleatoria();
+
         for (int fila = 0; fila < 5; fila++) {
             for (int columna = 0; columna < 5; columna++) {
-                int fil = fila;
-                int col = columna;
+                int numero = generador.GeneradorFicha();
+                String ruta = "/Imagenes/" + numero + ".png";
 
                 JButton boton = new JButton();
-                tablero[fila][col] = boton;
-                jPTablero.add(boton);
-
+                Imagenes img = new Imagenes(ruta);
+                boton.setIcon(img.getIcono(100, 100));
                 boton.setOpaque(true);
-                boton.setContentAreaFilled(true);
-                boton.setFocusPainted(true);
+                boton.setContentAreaFilled(false);
+                boton.setFocusPainted(false);
+                boton.setBorder(null);
+
+                tablero[fila][columna] = boton;
+                jPTablero.add(boton);
 
             }
         }
     }
-    
+
     public void mostrarFicha(int numero) {
         jPanel1.removeAll();
-        
+
         String ruta = "/Imagenes/" + numero + ".png";
         Imagenes PanelFichas = new Imagenes(ruta);
         PanelFichas.setSize(190, 190);
         PanelFichas.setVisible(true);
-        
+
         jPanel1.add(PanelFichas);
         jPanel1.revalidate();
         jPanel1.repaint();
     }
-
 
     public Patron() {
         initComponents();
