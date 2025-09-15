@@ -8,11 +8,11 @@ import javax.swing.JOptionPane;
 
 public class MenuPrincipal extends javax.swing.JFrame {
 
-    Imagenes img = new Imagenes("/Imagenes/BgMenuPrincipal.png");
+    Imagenes bg = new Imagenes("/Imagenes/BgMenuPrincipal.png");
 
     public MenuPrincipal() {
         setSize(1200, 800);
-        this.setContentPane(img);
+        this.setContentPane(bg);
         initComponents();
     }
 
