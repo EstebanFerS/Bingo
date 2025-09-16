@@ -50,27 +50,37 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     private void BPatronActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BPatronActionPerformed
         try {
-            int cantJugadores = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de jugadores: "));
+            int cantJugadores = Integer.parseInt(
+                    JOptionPane.showInputDialog("Ingrese la cantidad de jugadores: "));
 
             PanelControl pc = new PanelControl(cantJugadores);
             pc.setVisible(true);
             this.dispose();
-            
+
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Ingrese un número válido");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this,
+                    "Error al iniciar el juego en modalidad Patrón: " + ex.getMessage());
         }
     }//GEN-LAST:event_BPatronActionPerformed
 
     private void BFullHouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BFullHouseActionPerformed
         try {
-            int cantJugadores = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de jugadores: "));
+            int cantJugadores = Integer.parseInt(
+                    JOptionPane.showInputDialog("Ingrese la cantidad de jugadores: "));
 
             PanelControl pc = new PanelControl(cantJugadores);
             pc.setVisible(true);
             this.dispose();
-            
+
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Ingrese un número válido");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this,
+                    "Error al iniciar el juego en modalidad FullHouse: " + ex.getMessage());
         }
     }//GEN-LAST:event_BFullHouseActionPerformed
 
