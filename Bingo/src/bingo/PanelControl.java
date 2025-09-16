@@ -10,7 +10,7 @@ import java.awt.*;
 public class PanelControl extends javax.swing.JFrame {
 
     private FichaAleatoria generador;
-    private FullHouse FH = new FullHouse();
+    private FullHouse FH = new FullHouse("JugadorAdmin");
     private JButton[][] tablero = new JButton[16][5];
 
     private void GeneradorFicha() {

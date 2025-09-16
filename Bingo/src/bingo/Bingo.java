@@ -7,7 +7,10 @@ package bingo;
 public class Bingo {
 
     public static void main(String[] args) {
-
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            MenuPrincipal menu = new MenuPrincipal();
+            menu.setVisible(true);
+            menu.setLocationRelativeTo(null);
+        });
     }
-
 }

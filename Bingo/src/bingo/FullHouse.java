@@ -8,6 +8,21 @@ public class FullHouse extends javax.swing.JFrame {
     private JButton[][] tablero = new JButton[5][5];
     private int[][] numeros = new int[5][5];
     private boolean[][] puedePresionar = new boolean[5][5];
+    private ClienteBingo cliente;
+    private String nombreJugador;
+
+    public FullHouse(int[][] numerosServidor, ClienteBingo cliente, String nombre) {
+        initComponents();
+        this.numeros = numerosServidor;
+        this.cliente = cliente;
+        this.nombreJugador = nombre;
+        tablero();
+        jLNombreParticipante.setText(nombre);
+    }
+
+    FullHouse() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
     private void tablero() {
         FichaAleatoria generador = new FichaAleatoria();
@@ -76,38 +91,26 @@ public class FullHouse extends javax.swing.JFrame {
         }
     }
 
-    public void tableroLleno() {
-        boolean bingo = true;
+    public boolean tableroLleno() {
         for (int fila = 0; fila < 5; fila++) {
             for (int columna = 0; columna < 5; columna++) {
                 if (puedePresionar[fila][columna]) {
-                    bingo = false;
-                    break;
+                    return false;
                 }
             }
-            if (!bingo) {
-                break;
-            }
         }
-
-        if (bingo) {
-            JOptionPane.showMessageDialog(this, "¡Haz ganado esta ronda!");
-        } else {
-            JOptionPane.showMessageDialog(this, "Error: Todavia te falta completar el tablero.");
-        }
+        return true;
     }
 
-    public FullHouse() {
+    public FullHouse(String nombre) {
         initComponents();
         tablero();
 
-        String nombre = JOptionPane.showInputDialog(this, "Ingrese su nombre:");
         if (nombre != null && !nombre.trim().isEmpty()) {
-            jLNombreParticipante.setText( nombre);
+            jLNombreParticipante.setText(nombre);
         } else {
             jLNombreParticipante.setText("Jugador: Anónimo");
         }
-
     }
 
     /**
@@ -224,44 +227,12 @@ public class FullHouse extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBBingoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBingoActionPerformed
-        tableroLleno();
+
     }//GEN-LAST:event_jBBingoActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FullHouse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FullHouse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FullHouse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FullHouse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FullHouse().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPNumGenerado;
