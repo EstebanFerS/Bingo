@@ -10,7 +10,7 @@ import java.awt.*;
 public class PanelControl extends javax.swing.JFrame {
 
     private FichaAleatoria generador;
-    private FullHouse FH = new FullHouse("JugadorAdmin");
+    private FullHouse FH = new FullHouse();
     private JButton[][] tablero = new JButton[16][5];
 
     private void GeneradorFicha() {
@@ -73,14 +73,14 @@ public class PanelControl extends javax.swing.JFrame {
                 JButton boton = (JButton) comp;
                 if (boton.getText().equals(String.valueOf(numero))) {
                     Color original = boton.getBackground();
-                    boton.setBackground(original.darker()); 
+                    boton.setBackground(original.darker());
                 }
             }
         }
     }
 
     private void tablero() {
-        
+
         String[] letras = {"B", "I", "N", "G", "O"};
         Color[] colores = {
             new Color(128, 0, 32),
@@ -215,6 +215,11 @@ public class PanelControl extends javax.swing.JFrame {
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(854, 327, 320, -1));
 
         jToggleButton1.setText("jToggleButton1");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 615, 327, 80));
 
         jToggleButton2.setText("jToggleButton1");
@@ -247,6 +252,10 @@ public class PanelControl extends javax.swing.JFrame {
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton2ActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
