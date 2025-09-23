@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package bingo;
 
 import javax.swing.*;
@@ -10,23 +6,21 @@ import java.awt.*;
 public class PanelControl extends javax.swing.JFrame {
 
     private FichaAleatoria generador;
-    private FullHouse FH = new FullHouse();
+    private FullHouse FH;
+    private Patron p;
     private JButton[][] tablero = new JButton[16][5];
+    private int fichasLlamadas = 0;
+    private int fichasRestantes = 75;
 
     private void GeneradorFicha() {
 
         int numero = generador.GeneradorFicha();
         if (numero == 0) {
-            jToggleButton1.setEnabled(false);
+            BSigNumero.setEnabled(false);
             return;
         }
 
         String ruta = "/Imagenes/" + numero + ".png";
-
-        if (FH != null) {
-            FH.mostrarFicha(numero);
-        }
-
         Imagenes nuevaFicha = new Imagenes(ruta);
 
         int anchoGrande = 130;
@@ -37,11 +31,11 @@ public class PanelControl extends javax.swing.JFrame {
         int espaciado = 10;
         int extraSeparacion = 30;
 
-        int panelHeight = jPanel6.getHeight();
+        int panelHeight = jPMostradorFicha.getHeight();
 
         int contador = 0;
-        for (int i = 0; i < jPanel6.getComponentCount(); i++) {
-            java.awt.Component comp = jPanel6.getComponent(i);
+        for (int i = 0; i < jPMostradorFicha.getComponentCount(); i++) {
+            java.awt.Component comp = jPMostradorFicha.getComponent(i);
 
             if (comp instanceof Imagenes) {
                 Imagenes fichaVieja = (Imagenes) comp;
@@ -62,10 +56,10 @@ public class PanelControl extends javax.swing.JFrame {
         int yNueva = (panelHeight - altoGrande) / 2;
         nuevaFicha.setBounds(xNueva, yNueva, anchoGrande, altoGrande);
 
-        jPanel6.add(nuevaFicha, 0);
+        jPMostradorFicha.add(nuevaFicha, 0);
 
-        jPanel6.revalidate();
-        jPanel6.repaint();
+        jPMostradorFicha.revalidate();
+        jPMostradorFicha.repaint();
 
         for (int i = 0; i < jPTablero.getComponentCount(); i++) {
             java.awt.Component comp = jPTablero.getComponent(i);
@@ -77,6 +71,11 @@ public class PanelControl extends javax.swing.JFrame {
                 }
             }
         }
+
+        fichasLlamadas++;
+        fichasRestantes--;
+        contador();
+
     }
 
     private void tablero() {
@@ -128,15 +127,29 @@ public class PanelControl extends javax.swing.JFrame {
         jPTablero.repaint();
     }
 
-    public PanelControl(int cantJugadores) {
+    private void contador() {
+        String ruta1 = "/Imagenes2/" + fichasLlamadas + ".png";
+        Imagenes rutaLlamada = new Imagenes(ruta1);
+        BFichasLlamadas.add(rutaLlamada);
+
+        String ruta2 = "/Imagenes2/" + fichasRestantes + ".png";
+        Imagenes rutaRestante = new Imagenes(ruta2);
+        BFichasRestantes.add(rutaRestante);
+
+    }
+
+    public PanelControl(FullHouse fh, Patron patron) {
+        this.FH = fh;
+        this.p = patron;
         generador = new FichaAleatoria();
+
         setLocationRelativeTo(null);
         initComponents();
-        jPanel6.setLayout(null);
-        jToggleButton1.addActionListener(e -> GeneradorFicha());
+        jPMostradorFicha.setLayout(null);
+        BSigNumero.addActionListener(e -> GeneradorFicha());
         tablero();
+        contador();
 
-        FH.setVisible(true);
     }
 
     /**
@@ -151,14 +164,17 @@ public class PanelControl extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPTablero = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
+        jPContador = new javax.swing.JPanel();
+        BFichasLlamadas = new javax.swing.JButton();
+        BFichasRestantes = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
-        jPanel6 = new javax.swing.JPanel();
+        BSigNumero = new javax.swing.JToggleButton();
+        BResetearTablero = new javax.swing.JToggleButton();
+        jPMostradorFicha = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -184,20 +200,20 @@ public class PanelControl extends javax.swing.JFrame {
         jPTablero.setLayout(new java.awt.GridLayout(16, 5));
         jPanel1.add(jPTablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 790, 580));
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPContador.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPContador.setLayout(new java.awt.GridLayout());
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 173, Short.MAX_VALUE)
-        );
+        BFichasLlamadas.setBackground(new java.awt.Color(0, 21, 68));
+        BFichasLlamadas.setRequestFocusEnabled(false);
+        BFichasLlamadas.setRolloverEnabled(false);
+        jPContador.add(BFichasLlamadas);
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(854, 134, 320, -1));
+        BFichasRestantes.setBackground(new java.awt.Color(0, 21, 68));
+        BFichasRestantes.setRequestFocusEnabled(false);
+        BFichasRestantes.setRolloverEnabled(false);
+        jPContador.add(BFichasRestantes);
+
+        jPanel1.add(jPContador, new org.netbeans.lib.awtextra.AbsoluteConstraints(854, 134, 320, 180));
 
         jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -209,29 +225,27 @@ public class PanelControl extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 272, Short.MAX_VALUE)
+            .addGap(0, 258, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(854, 327, 320, -1));
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 340, 320, 260));
 
-        jToggleButton1.setText("jToggleButton1");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        BSigNumero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                BSigNumeroActionPerformed(evt);
             }
         });
-        jPanel1.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 615, 327, 80));
+        jPanel1.add(BSigNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 615, 320, 80));
 
-        jToggleButton2.setText("jToggleButton1");
-        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+        BResetearTablero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton2ActionPerformed(evt);
+                BResetearTableroActionPerformed(evt);
             }
         });
-        jPanel1.add(jToggleButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 703, 327, 80));
+        jPanel1.add(BResetearTablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 703, 320, 80));
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 630, 790, 150));
+        jPMostradorFicha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.add(jPMostradorFicha, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 630, 790, 150));
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 800));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -242,31 +256,35 @@ public class PanelControl extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
 
-    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton2ActionPerformed
+    private void BResetearTableroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BResetearTableroActionPerformed
+      
+    }//GEN-LAST:event_BResetearTableroActionPerformed
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+    private void BSigNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BSigNumeroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
+    }//GEN-LAST:event_BSigNumeroActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BFichasLlamadas;
+    private javax.swing.JButton BFichasRestantes;
+    private javax.swing.JToggleButton BResetearTablero;
+    private javax.swing.JToggleButton BSigNumero;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPContador;
+    private javax.swing.JPanel jPMostradorFicha;
     private javax.swing.JPanel jPTablero;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
     // End of variables declaration//GEN-END:variables
 }

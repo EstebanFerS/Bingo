@@ -4,9 +4,6 @@
  */
 package bingo;
 
-import java.net.InetAddress;
-import javax.swing.JOptionPane;
-
 public class MenuPrincipal extends javax.swing.JFrame {
 
     Imagenes bg = new Imagenes("/Imagenes/BgMenuPrincipal.png");
@@ -26,6 +23,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1200, 800));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         BFullHouse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BFullHouse.png"))); // NOI18N
@@ -50,29 +48,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BPatronActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BPatronActionPerformed
-        try {
-            int cantJugadores = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de jugadores: "));
-
-            PanelControl pc = new PanelControl(cantJugadores);
-            pc.setVisible(true);
-            this.dispose();
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Ingrese un número válido");
-        }
+        Patron p = new Patron();
+        PanelControl pc = new PanelControl(null, p);
+        p.setVisible(true);
+        pc.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_BPatronActionPerformed
 
     private void BFullHouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BFullHouseActionPerformed
-        try {
-            int cantJugadores = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de jugadores: "));
-
-            PanelControl pc = new PanelControl(cantJugadores);
-            pc.setVisible(true);
-            this.dispose();
-            
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Ingrese un número válido");
-        }
+        FullHouse fh = new FullHouse();
+        PanelControl pc = new PanelControl(fh, null);
+        fh.setVisible(true);
+        pc.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_BFullHouseActionPerformed
 
     /**

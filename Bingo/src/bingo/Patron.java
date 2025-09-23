@@ -1,55 +1,105 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package bingo;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.event.*;
 
 public class Patron extends javax.swing.JFrame {
 
     private JButton[][] tablero = new JButton[5][5];
+    private int[][] numeros = new int[5][5];
+    private boolean[][] fichaHabilitada = new boolean[5][5];
+    private boolean[][] fichaSeleccionada = new boolean[5][5];
+    private patronesAleatorios generadorPatrones = new patronesAleatorios();
+    private boolean[][] patronActual;
 
-    private void tablero() {
+    private void Tablero() {
         FichaAleatoria generador = new FichaAleatoria();
 
         for (int fila = 0; fila < 5; fila++) {
             for (int columna = 0; columna < 5; columna++) {
-                int numero = generador.GeneradorFicha();
-                String ruta = "/Imagenes/" + numero + ".png";
 
                 JButton boton = new JButton();
-                Imagenes img = new Imagenes(ruta);
-                boton.setIcon(img.getIcono(100, 100));
-                boton.setOpaque(true);
+                int numero;
+
+                if (fila == 2 && columna == 2) {
+                    numero = 0;
+                    fichaHabilitada[fila][columna] = true;
+                } else {
+                    numero = generador.GeneradorFicha();
+                    fichaHabilitada[fila][columna] = false;
+                }
+
+                numeros[fila][columna] = numero;
+
+                String ruta = "/Imagenes2/" + numero + ".png";
                 boton.setContentAreaFilled(false);
-                boton.setFocusPainted(false);
                 boton.setBorder(null);
+                Imagenes img = new Imagenes(ruta);
+                boton.setIcon(img.getIcono(126, 124));
+
+                int f = fila;
+                int c = columna;
+
+                boton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if (fichaHabilitada[f][c]) {
+                            Imagenes imgVolteada = new Imagenes("/Imagenes2/" + numero + ".png");
+                            boton.setIcon(imgVolteada.getIcono(126, 124));
+
+                            boton.setEnabled(false);
+                            fichaHabilitada[f][c] = false;
+
+                           fichaSeleccionada[f][c] = true;
+                        }
+                    }
+                });
 
                 tablero[fila][columna] = boton;
                 jPTablero.add(boton);
-
             }
         }
     }
 
+    private void generarPatron() {
+        generadorPatrones.generarPatron();
+        patronActual = generadorPatrones.getPatronActual();
+        System.out.println("Patrón generado: " + generadorPatrones.getNombrePatron());
+    }
+
     public void mostrarFicha(int numero) {
-        jPanel1.removeAll();
+        JPNumGenerado.removeAll();
+        Imagenes img = new Imagenes("/Imagenes/" + numero + ".png");
+        jLNumGenerado.setIcon(img.getIcono(190, 190));
+        JPNumGenerado.add(jLNumGenerado);
+        JPNumGenerado.revalidate();
+        JPNumGenerado.repaint();
 
-        String ruta = "/Imagenes/" + numero + ".png";
-        Imagenes PanelFichas = new Imagenes(ruta);
-        PanelFichas.setSize(190, 190);
-        PanelFichas.setVisible(true);
+        for (int fila = 0; fila < 5; fila++) {
+            for (int columna = 0; columna < 5; columna++) {
+                if (numeros[fila][columna] == numero) {
+                    fichaHabilitada[fila][columna] = true;
+                }
+            }
+        }
+    }
 
-        jPanel1.add(PanelFichas);
-        jPanel1.revalidate();
-        jPanel1.repaint();
+    private boolean validarPatron() {
+        return generadorPatrones.validar(fichaSeleccionada);
     }
 
     public Patron() {
         initComponents();
-        tablero();
+        generarPatron();
+        Tablero();
+
+        String nombre = JOptionPane.showInputDialog(this, "Ingrese su nombre:");
+        if (nombre != null && !nombre.trim().isEmpty()) {
+            jLNombreParticipante.setText(nombre);
+        } else {
+            jLNombreParticipante.setText("Anónimo");
+        }
+
     }
 
     /**
@@ -63,75 +113,117 @@ public class Patron extends javax.swing.JFrame {
 
         jPBgBingo = new javax.swing.JPanel();
         jPTablero = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
+        jPanelFullHouse = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        JPNumGenerado = new javax.swing.JPanel();
+        jLNumGenerado = new javax.swing.JLabel();
         jBBingo = new javax.swing.JToggleButton();
+        jPParticipante = new javax.swing.JPanel();
+        jLNombreParticipante = new javax.swing.JLabel();
+        jLParticipante = new javax.swing.JLabel();
         lblBgBingo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+        setSize(new java.awt.Dimension(960, 700));
 
         jPBgBingo.setMinimumSize(new java.awt.Dimension(900, 700));
-        jPBgBingo.setPreferredSize(new java.awt.Dimension(700, 600));
+        jPBgBingo.setRequestFocusEnabled(false);
+        jPBgBingo.setVerifyInputWhenFocusTarget(false);
         jPBgBingo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPTablero.setBackground(new java.awt.Color(255, 255, 255));
         jPTablero.setLayout(new java.awt.GridLayout(5, 5));
-        jPBgBingo.add(jPTablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 700, 600));
+        jPBgBingo.add(jPTablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 670, 680));
 
-        jPanel2.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanelFullHouse.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white), javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, java.awt.Color.white)));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 148, Short.MAX_VALUE)
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/TableroFullHouse.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanelFullHouseLayout = new javax.swing.GroupLayout(jPanelFullHouse);
+        jPanelFullHouse.setLayout(jPanelFullHouseLayout);
+        jPanelFullHouseLayout.setHorizontalGroup(
+            jPanelFullHouseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 188, Short.MAX_VALUE)
-        );
-
-        jPBgBingo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 310, 150, 190));
-
-        jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 148, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 188, Short.MAX_VALUE)
+        jPanelFullHouseLayout.setVerticalGroup(
+            jPanelFullHouseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
         );
 
-        jPBgBingo.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 40, 150, 190));
+        jPBgBingo.add(jPanelFullHouse, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 370, 250, 210));
 
+        JPNumGenerado.setBackground(new java.awt.Color(255, 255, 255));
+        JPNumGenerado.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(153, 0, 0), new java.awt.Color(153, 0, 0), new java.awt.Color(153, 0, 0), new java.awt.Color(153, 0, 0)), javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(153, 0, 0), new java.awt.Color(153, 0, 0))));
+        JPNumGenerado.setForeground(new java.awt.Color(255, 255, 255));
+        JPNumGenerado.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        jLNumGenerado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout JPNumGeneradoLayout = new javax.swing.GroupLayout(JPNumGenerado);
+        JPNumGenerado.setLayout(JPNumGeneradoLayout);
+        JPNumGeneradoLayout.setHorizontalGroup(
+            JPNumGeneradoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(JPNumGeneradoLayout.createSequentialGroup()
+                .addComponent(jLNumGenerado, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        JPNumGeneradoLayout.setVerticalGroup(
+            JPNumGeneradoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLNumGenerado, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        jPBgBingo.add(JPNumGenerado, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 170, 250, 190));
+
+        jBBingo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/jBBingo.png"))); // NOI18N
         jBBingo.setText("BINGO");
+        jBBingo.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white), javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, java.awt.Color.white)));
         jBBingo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBBingoActionPerformed(evt);
             }
         });
-        jPBgBingo.add(jBBingo, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 580, 160, 100));
-        jPBgBingo.add(lblBgBingo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 700));
+        jPBgBingo.add(jBBingo, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 590, 250, 100));
+
+        jPParticipante.setOpaque(false);
+        jPParticipante.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLNombreParticipante.setBackground(new java.awt.Color(204, 102, 0));
+        jLNombreParticipante.setFont(new java.awt.Font("Microsoft Himalaya", 1, 48)); // NOI18N
+        jLNombreParticipante.setForeground(new java.awt.Color(231, 144, 0));
+        jLNombreParticipante.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLNombreParticipante.setToolTipText("");
+        jPParticipante.add(jLNombreParticipante, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 230, 60));
+
+        jLParticipante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/193 sin título_20250914223308.png"))); // NOI18N
+        jLParticipante.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, java.awt.Color.white), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.lightGray, java.awt.Color.white)));
+        jPParticipante.add(jLParticipante, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 250, 130));
+
+        jPBgBingo.add(jPParticipante, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 10, 250, 140));
+
+        lblBgBingo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/bgFH.png"))); // NOI18N
+        jPBgBingo.add(lblBgBingo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 700));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPBgBingo, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+            .addComponent(jPBgBingo, javax.swing.GroupLayout.PREFERRED_SIZE, 960, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPBgBingo, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
+            .addComponent(jPBgBingo, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBBingoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBingoActionPerformed
-        // TODO add your handling code here:
+        if (validarPatron()) {
+            JOptionPane.showMessageDialog(this, "¡BINGO! Has completado el patrón.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Error: Todavía no completas el patrón.");
+        }
     }//GEN-LAST:event_jBBingoActionPerformed
 
     /**
@@ -173,11 +265,16 @@ public class Patron extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel JPNumGenerado;
     private javax.swing.JToggleButton jBBingo;
+    private javax.swing.JLabel jLNombreParticipante;
+    private javax.swing.JLabel jLNumGenerado;
+    private javax.swing.JLabel jLParticipante;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPBgBingo;
+    private javax.swing.JPanel jPParticipante;
     private javax.swing.JPanel jPTablero;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanelFullHouse;
     private javax.swing.JLabel lblBgBingo;
     // End of variables declaration//GEN-END:variables
 }
