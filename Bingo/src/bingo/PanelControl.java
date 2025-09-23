@@ -13,70 +13,65 @@ public class PanelControl extends javax.swing.JFrame {
     private int fichasRestantes = 75;
 
     private void GeneradorFicha() {
-
-        int numero = generador.GeneradorFicha();
-        if (numero == 0) {
-            BSigNumero.setEnabled(false);
-            return;
-        }
-
-        String ruta = "/Imagenes/" + numero + ".png";
-        Imagenes nuevaFicha = new Imagenes(ruta);
-
-        int anchoGrande = 130;
-        int altoGrande = 130;
-        int anchoChico = 90;
-        int altoChico = 90;
-
-        int espaciado = 10;
-        int extraSeparacion = 30;
-
-        int panelHeight = jPMostradorFicha.getHeight();
-
-        int contador = 0;
-        for (int i = 0; i < jPMostradorFicha.getComponentCount(); i++) {
-            java.awt.Component comp = jPMostradorFicha.getComponent(i);
-
-            if (comp instanceof Imagenes) {
-                Imagenes fichaVieja = (Imagenes) comp;
-
-                if (contador < 6) {
-                    int x = anchoGrande + extraSeparacion + (contador * (anchoChico + espaciado));
-                    int y = (panelHeight - altoChico) / 2;
-
-                    fichaVieja.setBounds(x, y, anchoChico, altoChico);
-                    contador++;
-                } else {
-                    fichaVieja.setVisible(false);
-                }
-            }
-        }
-
-        int xNueva = espaciado;
-        int yNueva = (panelHeight - altoGrande) / 2;
-        nuevaFicha.setBounds(xNueva, yNueva, anchoGrande, altoGrande);
-
-        jPMostradorFicha.add(nuevaFicha, 0);
-
-        jPMostradorFicha.revalidate();
-        jPMostradorFicha.repaint();
-
-        for (int i = 0; i < jPTablero.getComponentCount(); i++) {
-            java.awt.Component comp = jPTablero.getComponent(i);
-            if (comp instanceof JButton) {
-                JButton boton = (JButton) comp;
-                if (boton.getText().equals(String.valueOf(numero))) {
-                    Color original = boton.getBackground();
-                    boton.setBackground(original.darker());
-                }
-            }
-        }
-
-        fichasLlamadas++;
-        fichasRestantes--;
-        contador();
-
+    int numero = generador.GeneradorFicha();
+    if (numero == 0) {
+        BSigNumero.setEnabled(false);
+        return;
     }
+
+    // Mostrar la ficha en el PanelControl
+    String ruta = "/Imagenes/" + numero + ".png";
+    Imagenes nuevaFicha = new Imagenes(ruta);
+    int anchoGrande = 130, altoGrande = 130, anchoChico = 90, altoChico = 90;
+    int espaciado = 10, extraSeparacion = 30;
+    int panelHeight = jPMostradorFicha.getHeight();
+    int contador = 0;
+
+    for (int i = 0; i < jPMostradorFicha.getComponentCount(); i++) {
+        java.awt.Component comp = jPMostradorFicha.getComponent(i);
+        if (comp instanceof Imagenes) {
+            Imagenes fichaVieja = (Imagenes) comp;
+            if (contador < 6) {
+                int x = anchoGrande + extraSeparacion + (contador * (anchoChico + espaciado));
+                int y = (panelHeight - altoChico) / 2;
+                fichaVieja.setBounds(x, y, anchoChico, altoChico);
+                contador++;
+            } else {
+                fichaVieja.setVisible(false);
+            }
+        }
+    }
+
+    int xNueva = espaciado;
+    int yNueva = (panelHeight - altoGrande) / 2;
+    nuevaFicha.setBounds(xNueva, yNueva, anchoGrande, altoGrande);
+    jPMostradorFicha.add(nuevaFicha, 0);
+    jPMostradorFicha.revalidate();
+    jPMostradorFicha.repaint();
+    
+    if (FH != null) {
+        FH.mostrarFicha(numero);
+    }
+    if (p != null) {
+        p.mostrarFicha(numero);
+    }
+
+    for (int i = 0; i < jPTablero.getComponentCount(); i++) {
+        java.awt.Component comp = jPTablero.getComponent(i);
+        if (comp instanceof JButton) {
+            JButton boton = (JButton) comp;
+            if (boton.getText().equals(String.valueOf(numero))) {
+                Color original = boton.getBackground();
+                boton.setBackground(original.darker());
+            }
+        }
+    }
+
+    fichasLlamadas++;
+    fichasRestantes--;
+    contador();
+}
+
 
     private void tablero() {
 

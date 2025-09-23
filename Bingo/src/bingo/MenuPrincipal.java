@@ -51,7 +51,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         Patron p = new Patron();
         PanelControl pc = new PanelControl(null, p);
         p.setVisible(true);
+        p.setLocationRelativeTo(null);
         pc.setVisible(true);
+        pc.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_BPatronActionPerformed
 
@@ -59,16 +61,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         FullHouse fh = new FullHouse();
         PanelControl pc = new PanelControl(fh, null);
         fh.setVisible(true);
+        fh.setLocationRelativeTo(null);
         pc.setVisible(true);
+        pc.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_BFullHouseActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(() -> new MenuPrincipal().setVisible(true));
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BFullHouse;

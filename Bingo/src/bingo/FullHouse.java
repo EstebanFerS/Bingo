@@ -35,7 +35,7 @@ public class FullHouse extends javax.swing.JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         if (fichaHabilitada[f][c]) {
-                            Imagenes imgVolteada = new Imagenes("/Imagenes2/" + numero + ".png");
+                            Imagenes imgVolteada = new Imagenes("/Imagenes2/" + numeros[f][c] + ".png");
                             boton.setIcon(imgVolteada.getIcono(126, 124));
                             boton.setEnabled(false);
                             fichaHabilitada[f][c] = false;
@@ -50,16 +50,14 @@ public class FullHouse extends javax.swing.JFrame {
     }
 
     public void mostrarFicha(int numero) {
-
         JPNumGenerado.removeAll();
-
         Imagenes img = new Imagenes("/Imagenes/" + numero + ".png");
         jLNumGenerado.setIcon(img.getIcono(190, 190));
         JPNumGenerado.add(jLNumGenerado);
-
         JPNumGenerado.revalidate();
         JPNumGenerado.repaint();
 
+        // habilitar solo la ficha que salió
         for (int fila = 0; fila < 5; fila++) {
             for (int columna = 0; columna < 5; columna++) {
                 if (numeros[fila][columna] == numero) {
@@ -67,7 +65,6 @@ public class FullHouse extends javax.swing.JFrame {
                 }
             }
         }
-
     }
 
     public void tableroLleno() {
