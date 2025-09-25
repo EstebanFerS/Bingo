@@ -9,6 +9,11 @@ public class FullHouse extends javax.swing.JFrame {
     private int[][] numeros = new int[5][5];
     private boolean[][] fichaHabilitada = new boolean[5][5];
     private boolean[][] fichaSeleccionada = new boolean[5][5];
+    private PanelControl panelControl;
+
+    public void setPanelControl(PanelControl pc) {
+        this.panelControl = pc;
+    }
 
     private void tablero() {
         FichaAleatoria generador = new FichaAleatoria();
@@ -94,6 +99,9 @@ public class FullHouse extends javax.swing.JFrame {
 
             if (opcion == JOptionPane.YES_OPTION) {
                 this.dispose();
+                if (panelControl != null) {
+                    panelControl.dispose();
+                }
                 new MenuPrincipal().setVisible(true);
             } else {
                 System.exit(0);

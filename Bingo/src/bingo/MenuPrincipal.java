@@ -70,6 +70,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         pc.setLocationRelativeTo(null);
         pc.setVisible(true);
 
+        fh.setPanelControl(pc);
         this.dispose();
     }//GEN-LAST:event_BFullHouseActionPerformed
 
