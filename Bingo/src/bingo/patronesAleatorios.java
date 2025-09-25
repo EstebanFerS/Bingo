@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package bingo;
 
 import java.util.Random;
@@ -19,21 +15,21 @@ public class patronesAleatorios {
         switch (opcion) {
             case 0:
                 patronM();
-                nombrePatron = "M";
+                nombrePatron = "PatronM";
                 break;
             case 1:
                 patronX();
-                nombrePatron = "X";
+                nombrePatron = "PatronX";
 
                 break;
             case 2:
                 patronL();
-                nombrePatron = "L";
+                nombrePatron = "PatronL";
 
                 break;
             case 3:
                 patronT();
-                nombrePatron = "T";
+                nombrePatron = "PatronT";
 
                 break;
         }
@@ -68,24 +64,24 @@ public class patronesAleatorios {
             patronActual[i][0] = true;
             patronActual[i][4] = true;
         }
-        
+
         patronActual[1][1] = true;
         patronActual[1][3] = true;
         patronActual[2][2] = true;
     }
 
-    private void tablerolleno(){
-        
+    private void tablerolleno() {
+
     }
-    
+
     public boolean[][] getPatronActual() {
         return patronActual;
     }
-    
-  public String getNombrePatron() {
+
+    public String getNombrePatron() {
         return nombrePatron;
     }
-  
+
     public boolean validar(boolean[][] presionados) {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {

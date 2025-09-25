@@ -13,65 +13,63 @@ public class PanelControl extends javax.swing.JFrame {
     private int fichasRestantes = 75;
 
     private void GeneradorFicha() {
-    int numero = generador.GeneradorFicha();
-    if (numero == 0) {
-        BSigNumero.setEnabled(false);
-        return;
-    }
+        int numero = generador.GeneradorFicha();
+        if (numero == 0) {
+            BSigNumero.setEnabled(false);
+            return;
+        }
 
-    // Mostrar la ficha en el PanelControl
-    String ruta = "/Imagenes/" + numero + ".png";
-    Imagenes nuevaFicha = new Imagenes(ruta);
-    int anchoGrande = 130, altoGrande = 130, anchoChico = 90, altoChico = 90;
-    int espaciado = 10, extraSeparacion = 30;
-    int panelHeight = jPMostradorFicha.getHeight();
-    int contador = 0;
+        String ruta = "/Imagenes/" + numero + ".png";
+        Imagenes nuevaFicha = new Imagenes(ruta);
+        int anchoGrande = 130, altoGrande = 130, anchoChico = 90, altoChico = 90;
+        int espaciado = 10, extraSeparacion = 30;
+        int panelHeight = jPMostradorFicha.getHeight();
+        int contador = 0;
 
-    for (int i = 0; i < jPMostradorFicha.getComponentCount(); i++) {
-        java.awt.Component comp = jPMostradorFicha.getComponent(i);
-        if (comp instanceof Imagenes) {
-            Imagenes fichaVieja = (Imagenes) comp;
-            if (contador < 6) {
-                int x = anchoGrande + extraSeparacion + (contador * (anchoChico + espaciado));
-                int y = (panelHeight - altoChico) / 2;
-                fichaVieja.setBounds(x, y, anchoChico, altoChico);
-                contador++;
-            } else {
-                fichaVieja.setVisible(false);
+        for (int i = 0; i < jPMostradorFicha.getComponentCount(); i++) {
+            java.awt.Component comp = jPMostradorFicha.getComponent(i);
+            if (comp instanceof Imagenes) {
+                Imagenes fichaVieja = (Imagenes) comp;
+                if (contador < 6) {
+                    int x = anchoGrande + extraSeparacion + (contador * (anchoChico + espaciado));
+                    int y = (panelHeight - altoChico) / 2;
+                    fichaVieja.setBounds(x, y, anchoChico, altoChico);
+                    contador++;
+                } else {
+                    fichaVieja.setVisible(false);
+                }
             }
         }
-    }
 
-    int xNueva = espaciado;
-    int yNueva = (panelHeight - altoGrande) / 2;
-    nuevaFicha.setBounds(xNueva, yNueva, anchoGrande, altoGrande);
-    jPMostradorFicha.add(nuevaFicha, 0);
-    jPMostradorFicha.revalidate();
-    jPMostradorFicha.repaint();
-    
-    if (FH != null) {
-        FH.mostrarFicha(numero);
-    }
-    if (p != null) {
-        p.mostrarFicha(numero);
-    }
+        int xNueva = espaciado;
+        int yNueva = (panelHeight - altoGrande) / 2;
+        nuevaFicha.setBounds(xNueva, yNueva, anchoGrande, altoGrande);
+        jPMostradorFicha.add(nuevaFicha, 0);
+        jPMostradorFicha.revalidate();
+        jPMostradorFicha.repaint();
 
-    for (int i = 0; i < jPTablero.getComponentCount(); i++) {
-        java.awt.Component comp = jPTablero.getComponent(i);
-        if (comp instanceof JButton) {
-            JButton boton = (JButton) comp;
-            if (boton.getText().equals(String.valueOf(numero))) {
-                Color original = boton.getBackground();
-                boton.setBackground(original.darker());
+        if (FH != null) {
+            FH.mostrarFicha(numero);
+        }
+        if (p != null) {
+            p.mostrarFicha(numero);
+        }
+
+        for (int i = 0; i < jPTablero.getComponentCount(); i++) {
+            java.awt.Component comp = jPTablero.getComponent(i);
+            if (comp instanceof JButton) {
+                JButton boton = (JButton) comp;
+                if (boton.getText().equals(String.valueOf(numero))) {
+                    Color original = boton.getBackground();
+                    boton.setBackground(original.darker());
+                }
             }
         }
+
+        fichasLlamadas++;
+        fichasRestantes--;
+        contador();
     }
-
-    fichasLlamadas++;
-    fichasRestantes--;
-    contador();
-}
-
 
     private void tablero() {
 
@@ -86,7 +84,6 @@ public class PanelControl extends javax.swing.JFrame {
 
         for (int col = 0; col < 5; col++) {
             JButton letra = new JButton(letras[col]);
-            letra.setEnabled(false);
             letra.setForeground(Color.WHITE);
             letra.setFont(new Font("Felix Titling", Font.BOLD, 16));
             letra.setBorder(BorderFactory.createLineBorder(Color.WHITE));
@@ -130,6 +127,22 @@ public class PanelControl extends javax.swing.JFrame {
         String ruta2 = "/Imagenes2/" + fichasRestantes + ".png";
         Imagenes rutaRestante = new Imagenes(ruta2);
         BFichasRestantes.add(rutaRestante);
+    }
+
+    public void mostrarPatron() {
+        String ruta = "";
+        if (p != null) {
+            String nombre = p.getGeneradorPatrones().getNombrePatron();
+            ruta = "/Imagenes/" + nombre + ".png";
+        } else if (FH != null) {
+            ruta = "/Imagenes/FullHouse.png";
+        }
+
+        Imagenes patronImagen = new Imagenes(ruta);
+        jLPatron.add(patronImagen);
+        patronImagen.setBounds(0, 0, jLPatron.getWidth(), jLPatron.getHeight());
+        jLPatron.revalidate();
+        jLPatron.repaint();
 
     }
 
@@ -144,6 +157,7 @@ public class PanelControl extends javax.swing.JFrame {
         BSigNumero.addActionListener(e -> GeneradorFicha());
         tablero();
         contador();
+        mostrarPatron();
 
     }
 
@@ -156,13 +170,15 @@ public class PanelControl extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jPPanelControl = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jPTablero = new javax.swing.JPanel();
         jPContador = new javax.swing.JPanel();
         BFichasLlamadas = new javax.swing.JButton();
         BFichasRestantes = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
+        jPPatron = new javax.swing.JPanel();
+        jLPatron = new javax.swing.JLabel();
         BSigNumero = new javax.swing.JToggleButton();
         BResetearTablero = new javax.swing.JToggleButton();
         jPMostradorFicha = new javax.swing.JPanel();
@@ -171,88 +187,90 @@ public class PanelControl extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPPanelControl.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LBingo.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 94, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(854, 30, 320, -1));
+        jPPanelControl.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 10, 320, -1));
 
         jPTablero.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         jPTablero.setForeground(new java.awt.Color(153, 0, 0));
         jPTablero.setToolTipText("");
         jPTablero.setFont(new java.awt.Font("Felix Titling", 1, 12)); // NOI18N
         jPTablero.setLayout(new java.awt.GridLayout(16, 5));
-        jPanel1.add(jPTablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 790, 580));
+        jPPanelControl.add(jPTablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 790, 580));
 
-        jPContador.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPContador.setLayout(new java.awt.GridLayout());
+        jPContador.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, null, java.awt.Color.white), javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, java.awt.Color.white)));
+        jPContador.setPreferredSize(new java.awt.Dimension(320, 180));
+        jPContador.setLayout(new java.awt.GridLayout(1, 0));
 
         BFichasLlamadas.setBackground(new java.awt.Color(0, 21, 68));
+        BFichasLlamadas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         BFichasLlamadas.setRequestFocusEnabled(false);
         BFichasLlamadas.setRolloverEnabled(false);
         jPContador.add(BFichasLlamadas);
 
         BFichasRestantes.setBackground(new java.awt.Color(0, 21, 68));
+        BFichasRestantes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         BFichasRestantes.setRequestFocusEnabled(false);
         BFichasRestantes.setRolloverEnabled(false);
         jPContador.add(BFichasRestantes);
 
-        jPanel1.add(jPContador, new org.netbeans.lib.awtextra.AbsoluteConstraints(854, 134, 320, 180));
+        jPPanelControl.add(jPContador, new org.netbeans.lib.awtextra.AbsoluteConstraints(844, 144, 330, 190));
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPPatron.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white), javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, java.awt.Color.white)));
+        jPPatron.setLayout(null);
+        jPPatron.add(jLPatron);
+        jLPatron.setBounds(6, 4, 310, 252);
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 318, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 258, Short.MAX_VALUE)
-        );
+        jPPanelControl.add(jPPatron, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 340, 320, 260));
 
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 340, 320, 260));
-
+        BSigNumero.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BGenerarNumero.png"))); // NOI18N
+        BSigNumero.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, java.awt.Color.white), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white)));
         BSigNumero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BSigNumeroActionPerformed(evt);
             }
         });
-        jPanel1.add(BSigNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 615, 320, 80));
+        jPPanelControl.add(BSigNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 610, 320, 80));
 
+        BResetearTablero.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/BResetear.png"))); // NOI18N
+        BResetearTablero.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white), javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, java.awt.Color.white)));
         BResetearTablero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BResetearTableroActionPerformed(evt);
             }
         });
-        jPanel1.add(BResetearTablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 703, 320, 80));
+        jPPanelControl.add(BResetearTablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 700, 320, 80));
 
         jPMostradorFicha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jPMostradorFicha, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 630, 790, 150));
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 800));
+        jPPanelControl.add(jPMostradorFicha, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 630, 790, 150));
+        jPPanelControl.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 800));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPPanelControl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPPanelControl, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -261,7 +279,36 @@ public class PanelControl extends javax.swing.JFrame {
 
 
     private void BResetearTableroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BResetearTableroActionPerformed
-      
+        jPMostradorFicha.removeAll();
+        jPMostradorFicha.revalidate();
+        jPMostradorFicha.repaint();
+
+        mostrarPatron();
+
+        Color[] colores = {
+            new Color(128, 0, 32),
+            Color.BLACK,
+            new Color(0, 0, 128),
+            new Color(184, 134, 11),
+            new Color(128, 0, 128)
+        };
+        for (int fila = 0; fila < 16; fila++) {
+            for (int col = 0; col < 5; col++) {
+                JButton boton = tablero[fila][col];
+                if (boton != null) {
+                    boton.setBackground(colores[col]);
+                    boton.setEnabled(true);
+                }
+            }
+        }
+
+        fichasLlamadas = 0;
+        fichasRestantes = 75;
+        BFichasLlamadas.removeAll();
+        BFichasRestantes.removeAll();
+        contador();
+
+        BSigNumero.setEnabled(true);
     }//GEN-LAST:event_BResetearTableroActionPerformed
 
     private void BSigNumeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BSigNumeroActionPerformed
@@ -274,12 +321,14 @@ public class PanelControl extends javax.swing.JFrame {
     private javax.swing.JButton BFichasRestantes;
     private javax.swing.JToggleButton BResetearTablero;
     private javax.swing.JToggleButton BSigNumero;
+    private javax.swing.JLabel jLPatron;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPContador;
     private javax.swing.JPanel jPMostradorFicha;
+    private javax.swing.JPanel jPPanelControl;
+    private javax.swing.JPanel jPPatron;
     private javax.swing.JPanel jPTablero;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel5;
     // End of variables declaration//GEN-END:variables
 }

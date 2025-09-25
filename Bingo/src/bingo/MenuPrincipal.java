@@ -1,8 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package bingo;
+
+import javax.swing.*;
 
 public class MenuPrincipal extends javax.swing.JFrame {
 
@@ -58,19 +56,23 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_BPatronActionPerformed
 
     private void BFullHouseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BFullHouseActionPerformed
-        FullHouse fh = new FullHouse();
-        PanelControl pc = new PanelControl(fh, null);
-        fh.setVisible(true);
+        String nombre = JOptionPane.showInputDialog(this, "Ingrese su nombre:");
+        if (nombre == null) {
+            JOptionPane.showMessageDialog(this, "Juego cancelado.");
+            return;
+        }
+
+        FullHouse fh = new FullHouse(nombre);
         fh.setLocationRelativeTo(null);
-        pc.setVisible(true);
+        fh.setVisible(true);
+
+        PanelControl pc = new PanelControl(fh, null);
         pc.setLocationRelativeTo(null);
+        pc.setVisible(true);
+
         this.dispose();
     }//GEN-LAST:event_BFullHouseActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BFullHouse;

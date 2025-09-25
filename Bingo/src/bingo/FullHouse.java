@@ -57,7 +57,6 @@ public class FullHouse extends javax.swing.JFrame {
         JPNumGenerado.revalidate();
         JPNumGenerado.repaint();
 
-        // habilitar solo la ficha que salió
         for (int fila = 0; fila < 5; fila++) {
             for (int columna = 0; columna < 5; columna++) {
                 if (numeros[fila][columna] == numero) {
@@ -71,6 +70,9 @@ public class FullHouse extends javax.swing.JFrame {
         boolean bingo = true;
         for (int fila = 0; fila < 5; fila++) {
             for (int columna = 0; columna < 5; columna++) {
+                if (fila == 2 && columna == 2) {
+                    continue;
+                }
                 if (!fichaSeleccionada[fila][columna]) {
                     bingo = false;
                     break;
@@ -82,20 +84,36 @@ public class FullHouse extends javax.swing.JFrame {
         }
         if (bingo) {
             JOptionPane.showMessageDialog(this, "¡BINGO! Has completado el tablero.");
+
+            int opcion = JOptionPane.showConfirmDialog(
+                    this,
+                    "¿Quieres jugar otra vez?",
+                    "Nuevo Juego",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (opcion == JOptionPane.YES_OPTION) {
+                this.dispose();
+                new MenuPrincipal().setVisible(true);
+            } else {
+                System.exit(0);
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Error: No haz completado el tablero por completo.");
+            JOptionPane.showMessageDialog(this, "Error: No has completado el tablero por completo.");
         }
     }
 
-    public FullHouse() {
+    public FullHouse(String nombre) {
         initComponents();
-        tablero();
-        String nombre = JOptionPane.showInputDialog(this, "Ingrese su nombre:");
-        if (nombre != null && !nombre.trim().isEmpty()) {
-            jLNombreParticipante.setText(nombre);
-        } else {
+
+        if (nombre == null || nombre.trim().isEmpty()) {
             jLNombreParticipante.setText("Anónimo");
+        } else {
+            jLNombreParticipante.setText(nombre);
         }
+
+        tablero();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -104,8 +122,8 @@ public class FullHouse extends javax.swing.JFrame {
 
         jPBgBingo = new javax.swing.JPanel();
         jPTablero = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jPFullHouse = new javax.swing.JPanel();
+        jLFullHouse = new javax.swing.JLabel();
         JPNumGenerado = new javax.swing.JPanel();
         jLNumGenerado = new javax.swing.JLabel();
         jBBingo = new javax.swing.JToggleButton();
@@ -125,22 +143,22 @@ public class FullHouse extends javax.swing.JFrame {
         jPTablero.setLayout(new java.awt.GridLayout(5, 5));
         jPBgBingo.add(jPTablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 670, 680));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white), javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, java.awt.Color.white)));
+        jPFullHouse.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white), javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, java.awt.Color.white)));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/TableroFullHouse.png"))); // NOI18N
+        jLFullHouse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/FullHouse.png"))); // NOI18N
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+        javax.swing.GroupLayout jPFullHouseLayout = new javax.swing.GroupLayout(jPFullHouse);
+        jPFullHouse.setLayout(jPFullHouseLayout);
+        jPFullHouseLayout.setHorizontalGroup(
+            jPFullHouseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLFullHouse, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+        jPFullHouseLayout.setVerticalGroup(
+            jPFullHouseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLFullHouse, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
         );
 
-        jPBgBingo.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 370, 250, 210));
+        jPBgBingo.add(jPFullHouse, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 370, 250, 210));
 
         JPNumGenerado.setBackground(new java.awt.Color(255, 255, 255));
         JPNumGenerado.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(153, 0, 0), new java.awt.Color(153, 0, 0), new java.awt.Color(153, 0, 0), new java.awt.Color(153, 0, 0)), javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(153, 0, 0), new java.awt.Color(153, 0, 0))));
@@ -182,7 +200,7 @@ public class FullHouse extends javax.swing.JFrame {
         jLNombreParticipante.setToolTipText("");
         jPParticipante.add(jLNombreParticipante, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 230, 60));
 
-        jLParticipante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/193 sin título_20250914223308.png"))); // NOI18N
+        jLParticipante.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/jPParticipante.png"))); // NOI18N
         jLParticipante.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, java.awt.Color.white), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.lightGray, java.awt.Color.white)));
         jPParticipante.add(jLParticipante, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 250, 130));
 
@@ -209,53 +227,18 @@ public class FullHouse extends javax.swing.JFrame {
         tableroLleno();
     }//GEN-LAST:event_jBBingoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FullHouse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FullHouse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FullHouse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FullHouse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FullHouse().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPNumGenerado;
     private javax.swing.JToggleButton jBBingo;
+    private javax.swing.JLabel jLFullHouse;
     private javax.swing.JLabel jLNombreParticipante;
     private javax.swing.JLabel jLNumGenerado;
     private javax.swing.JLabel jLParticipante;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPBgBingo;
+    private javax.swing.JPanel jPFullHouse;
     private javax.swing.JPanel jPParticipante;
     private javax.swing.JPanel jPTablero;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblBgBingo;
     // End of variables declaration//GEN-END:variables
 }
