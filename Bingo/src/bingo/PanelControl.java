@@ -133,9 +133,18 @@ public class PanelControl extends javax.swing.JFrame {
         String ruta = "";
         if (p != null) {
             String nombre = p.getGeneradorPatrones().getNombrePatron();
-            ruta = "/Imagenes/" + nombre + ".png";
+            if (nombre != null) {
+                ruta = "/Imagenes/" + nombre + ".png";
+            } else {
+                System.err.println("Error: Nombre de patrón es null en PanelControl");
+                return;
+            }
         } else if (FH != null) {
             ruta = "/Imagenes/FullHouse.png";
+        }
+
+        if (ruta.isEmpty()) {
+            return;
         }
 
         Imagenes patronImagen = new Imagenes(ruta);
@@ -143,7 +152,6 @@ public class PanelControl extends javax.swing.JFrame {
         patronImagen.setBounds(0, 0, jLPatron.getWidth(), jLPatron.getHeight());
         jLPatron.revalidate();
         jLPatron.repaint();
-
     }
 
     public PanelControl(FullHouse fh, Patron patron) {
@@ -259,6 +267,8 @@ public class PanelControl extends javax.swing.JFrame {
 
         jPMostradorFicha.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPPanelControl.add(jPMostradorFicha, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 630, 790, 150));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/BgControl.jpg"))); // NOI18N
         jPPanelControl.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 800));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

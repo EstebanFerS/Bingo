@@ -17,6 +17,12 @@ public class Patron extends javax.swing.JFrame {
         return generadorPatrones;
     }
 
+    private PanelControl panelControl;
+
+    public void setPanelControl(PanelControl pc) {
+        this.panelControl = pc;
+    }
+
     private void Tablero() {
         FichaAleatoria generador = new FichaAleatoria();
 
@@ -68,6 +74,8 @@ public class Patron extends javax.swing.JFrame {
 
     private void generarPatron() {
         String nombrePatron = generadorPatrones.getNombrePatron();
+
+        System.out.println("Nombre del patrón obtenido: " + nombrePatron);
 
         String ruta = "/Imagenes/" + nombrePatron + ".png";
 
@@ -232,6 +240,9 @@ public class Patron extends javax.swing.JFrame {
             );
             if (opcion == JOptionPane.YES_OPTION) {
                 this.dispose();
+                if (panelControl != null) {
+                    panelControl.dispose();
+                }
                 new MenuPrincipal().setVisible(true);
             } else {
                 System.exit(0);

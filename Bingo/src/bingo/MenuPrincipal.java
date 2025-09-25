@@ -10,6 +10,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         setSize(1200, 800);
         this.setContentPane(bg);
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -52,6 +53,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         p.setLocationRelativeTo(null);
         pc.setVisible(true);
         pc.setLocationRelativeTo(null);
+        
+        p.setPanelControl(pc);
         this.dispose();
     }//GEN-LAST:event_BPatronActionPerformed
 
